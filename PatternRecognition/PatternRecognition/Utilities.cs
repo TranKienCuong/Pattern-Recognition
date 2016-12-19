@@ -110,6 +110,10 @@ namespace PatternRecognition
                     {
                         binaryMatrix[i, j] = 1;
                     }
+                    else
+                    {
+                        binaryMatrix[i, j] = 0;
+                    }
                 }
             }
         }

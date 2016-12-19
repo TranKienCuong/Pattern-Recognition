@@ -154,6 +154,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pattern Recognition";
             ((System.ComponentModel.ISupportInitialize)(this.pictureRecognition)).EndInit();
             this.groupBox1.ResumeLayout(false);
