@@ -30,17 +30,24 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.recognizeButton = new System.Windows.Forms.Button();
-            this.picture = new System.Windows.Forms.PictureBox();
+            this.pictureRecognition = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.browsingButton = new System.Windows.Forms.Button();
             this.learningButton = new System.Windows.Forms.Button();
-            this.resultBox = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
+            this.pathTextBox = new System.Windows.Forms.TextBox();
+            this.browseFolderButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureRecognition)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // recognizeButton
             // 
-            this.recognizeButton.Location = new System.Drawing.Point(255, 103);
+            this.recognizeButton.Location = new System.Drawing.Point(280, 104);
             this.recognizeButton.Name = "recognizeButton";
             this.recognizeButton.Size = new System.Drawing.Size(97, 48);
             this.recognizeButton.TabIndex = 1;
@@ -48,16 +55,16 @@
             this.recognizeButton.UseVisualStyleBackColor = true;
             this.recognizeButton.Click += new System.EventHandler(this.recognizeButton_Click);
             // 
-            // picture
+            // pictureRecognition
             // 
-            this.picture.BackColor = System.Drawing.Color.White;
-            this.picture.Image = ((System.Drawing.Image)(resources.GetObject("picture.Image")));
-            this.picture.Location = new System.Drawing.Point(35, 36);
-            this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(67, 53);
-            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picture.TabIndex = 2;
-            this.picture.TabStop = false;
+            this.pictureRecognition.BackColor = System.Drawing.Color.White;
+            this.pictureRecognition.Image = ((System.Drawing.Image)(resources.GetObject("pictureRecognition.Image")));
+            this.pictureRecognition.Location = new System.Drawing.Point(28, 37);
+            this.pictureRecognition.Name = "pictureRecognition";
+            this.pictureRecognition.Size = new System.Drawing.Size(67, 53);
+            this.pictureRecognition.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureRecognition.TabIndex = 2;
+            this.pictureRecognition.TabStop = false;
             // 
             // openFileDialog1
             // 
@@ -65,56 +72,110 @@
             // 
             // browsingButton
             // 
-            this.browsingButton.Location = new System.Drawing.Point(255, 36);
+            this.browsingButton.Location = new System.Drawing.Point(280, 37);
             this.browsingButton.Name = "browsingButton";
             this.browsingButton.Size = new System.Drawing.Size(97, 45);
             this.browsingButton.TabIndex = 3;
-            this.browsingButton.Text = "Browse...";
+            this.browsingButton.Text = "Browse picture";
             this.browsingButton.UseVisualStyleBackColor = true;
             this.browsingButton.Click += new System.EventHandler(this.browsingButton_Click);
             // 
             // learningButton
             // 
-            this.learningButton.Location = new System.Drawing.Point(35, 170);
+            this.learningButton.Location = new System.Drawing.Point(280, 83);
             this.learningButton.Name = "learningButton";
-            this.learningButton.Size = new System.Drawing.Size(75, 20);
+            this.learningButton.Size = new System.Drawing.Size(110, 32);
             this.learningButton.TabIndex = 4;
             this.learningButton.Text = "Learn";
             this.learningButton.UseVisualStyleBackColor = true;
             this.learningButton.Click += new System.EventHandler(this.learningButton_Click);
             // 
-            // resultBox
+            // pathTextBox
             // 
-            this.resultBox.Location = new System.Drawing.Point(133, 170);
-            this.resultBox.Name = "resultBox";
-            this.resultBox.Size = new System.Drawing.Size(83, 20);
-            this.resultBox.TabIndex = 5;
+            this.pathTextBox.Location = new System.Drawing.Point(50, 38);
+            this.pathTextBox.Name = "pathTextBox";
+            this.pathTextBox.Size = new System.Drawing.Size(214, 20);
+            this.pathTextBox.TabIndex = 6;
             // 
-            // Form1
+            // browseFolderButton
+            // 
+            this.browseFolderButton.Location = new System.Drawing.Point(280, 33);
+            this.browseFolderButton.Name = "browseFolderButton";
+            this.browseFolderButton.Size = new System.Drawing.Size(110, 28);
+            this.browseFolderButton.TabIndex = 7;
+            this.browseFolderButton.Text = "Browse folder";
+            this.browseFolderButton.UseVisualStyleBackColor = true;
+            this.browseFolderButton.Click += new System.EventHandler(this.browseFolderButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Path :";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.pictureRecognition);
+            this.groupBox1.Controls.Add(this.recognizeButton);
+            this.groupBox1.Controls.Add(this.browsingButton);
+            this.groupBox1.Location = new System.Drawing.Point(18, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(414, 173);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Recognition";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.learningButton);
+            this.groupBox2.Controls.Add(this.pathTextBox);
+            this.groupBox2.Controls.Add(this.browseFolderButton);
+            this.groupBox2.Location = new System.Drawing.Point(18, 191);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(414, 139);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Learning";
+            // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.SelectedPath = "D:\\Documents\\Visual Studio 2015\\Projects\\PatternRecognition\\PatternRecognition\\Sa" +
+    "mples";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 198);
-            this.Controls.Add(this.resultBox);
-            this.Controls.Add(this.learningButton);
-            this.Controls.Add(this.browsingButton);
-            this.Controls.Add(this.picture);
-            this.Controls.Add(this.recognizeButton);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
+            this.ClientSize = new System.Drawing.Size(450, 345);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Name = "MainForm";
+            this.Text = "Pattern Recognition";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureRecognition)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button recognizeButton;
-        private System.Windows.Forms.PictureBox picture;
+        private System.Windows.Forms.PictureBox pictureRecognition;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button browsingButton;
         private System.Windows.Forms.Button learningButton;
-        private System.Windows.Forms.TextBox resultBox;
+        private System.Windows.Forms.TextBox pathTextBox;
+        private System.Windows.Forms.Button browseFolderButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 
