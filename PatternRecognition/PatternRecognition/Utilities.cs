@@ -21,9 +21,9 @@ namespace PatternRecognition
             bool check = false;
 
             // Find top horizontal bound line
-            for (int j = 0; j < image.Height; ++j)
+            for (int j = 0; j < image.Height; j++)
             {
-                for (int i = 0; i < image.Width; ++i)
+                for (int i = 0; i < image.Width; i++)
                 {
                     if (image.GetPixel(i, j).R <= 245 && image.GetPixel(i, j).B <= 245 && image.GetPixel(i, j).G <= 245)
                     {
@@ -39,9 +39,9 @@ namespace PatternRecognition
             check = false;
 
             // Find top vertical bound line
-            for (int i = 0; i < image.Width; ++i)
+            for (int i = 0; i < image.Width; i++)
             {
-                for (int j = 0; j < image.Height; ++j)
+                for (int j = 0; j < image.Height; j++)
                 {
                     if (image.GetPixel(i, j).R <= 245 && image.GetPixel(i, j).B <= 245 && image.GetPixel(i, j).G <= 245)
                     {
@@ -102,9 +102,9 @@ namespace PatternRecognition
 
         public static void ConvertImageToBinaryMatrix(Bitmap bitmap, int[,] binaryMatrix)
         {
-            for (int i = 0; i < binaryMatrix.GetLength(0); ++i)
+            for (int i = 0; i < binaryMatrix.GetLength(0); i++)
             {
-                for (int j = 0; j < binaryMatrix.GetLength(1); ++j)
+                for (int j = 0; j < binaryMatrix.GetLength(1); j++)
                 {
                     if (bitmap.GetPixel(j, i).R <= 245 && bitmap.GetPixel(j, i).B <= 245 && bitmap.GetPixel(j, i).G <= 245) // Image(rong, cao) >< Arr[cao, rong]
                     {
@@ -129,6 +129,44 @@ namespace PatternRecognition
             g.Dispose();
 
             return b;
+        }
+
+        public static List<Bitmap> SegmentCharacters(Bitmap image)
+        {
+            List<Bitmap> L = new List<Bitmap>();
+
+            int[] numberRange = Enumerable.Repeat(0, image.Width).ToArray();
+
+            for (int i = 0; i < image.Width; i++)
+            {
+                for (int j = 0; j < image.Height; j++)
+                {
+                    if (image.GetPixel(i, j).R <= 245 && image.GetPixel(i, j).B <= 245 && image.GetPixel(i, j).G <= 245)
+                    {
+                        numberRange[i] = 1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < image.Width; i++)
+            {
+                if (numberRange[i] == 1)
+                {
+                    int count = 0;
+                    for (int j = i; j < image.Width; j++)
+                    {
+                        if (numberRange[j] == 1)
+                            count++;
+                        else
+                            break;
+                    }
+                    Bitmap bitmap = CropBitmap(image, i, 0, count, image.Height);
+                    L.Add(bitmap);
+                    i += count;
+                }
+            }
+
+            return L;
         }
     }
 }

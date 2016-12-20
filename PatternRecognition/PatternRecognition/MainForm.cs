@@ -280,9 +280,9 @@ namespace PatternRecognition
         }
 
         /// <summary>
-        /// nhận diện
+        /// nhận diện một số
         /// </summary>
-        void Recognize()
+        int Recognize()
         {
             ImportBinaryMatrixToInputLayer();
 
@@ -295,7 +295,7 @@ namespace PatternRecognition
                 result += Threshold(neuralsOutputLayer[i]).ToString();
             int number = ConvertBinaryStringToInteger(result);
 
-            MessageBox.Show("This is " + number.ToString());
+            return number;
         }
 
         /// <summary>
@@ -336,13 +336,19 @@ namespace PatternRecognition
 
         private void recognizeButton_Click(object sender, EventArgs e)
         {
-            imageRecognition = (Bitmap)recognitionPictureBox.Image;
+            Bitmap rawImage = (Bitmap)recognitionPictureBox.Image;
+            List<Bitmap> bitmaps = Utilities.SegmentCharacters(rawImage);
 
-            imageRecognition = SimplifyImage(imageRecognition);
+            string result = "";
+            foreach (Bitmap bitmap in bitmaps)
+            {
+                imageRecognition = SimplifyImage(bitmap);
+                Utilities.ConvertImageToBinaryMatrix(imageRecognition, binaryMatrix);
 
-            Utilities.ConvertImageToBinaryMatrix(imageRecognition, binaryMatrix);
+                result += Recognize().ToString();
+            }
 
-            Recognize();
+            MessageBox.Show("This is " + result);
         }
 
         private void browsingButton_Click(object sender, EventArgs e)
@@ -368,8 +374,8 @@ namespace PatternRecognition
                 {
                     Bitmap imageLearning = samples[i];
 
-                    if (l == 0)
-                        imageLearning.Save(i + "simplify.png");
+                    //if (l == 0)
+                    //    imageLearning.Save(i + "simplify.png");
 
                     Utilities.ConvertImageToBinaryMatrix(imageLearning, binaryMatrix);
 
