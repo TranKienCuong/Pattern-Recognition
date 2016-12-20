@@ -8,16 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace PatternRecognition
 {
     public partial class MainForm : Form
     {
-        const int NUMBER_SAMPLES = 10;
+        static int NUMBER_SAMPLES = 30;
         const int BIAS = 30;
-        const int EPOCHS = 400;
-        const double E_MAX = 0.0001;
-        const double LEARNING_RATE = 0.1;
+        const int EPOCHS = 300;
+        const double E_MAX = 0.001;
+        const double LEARNING_RATE = 0.2;
 
         double EValue = 0;
 
@@ -40,8 +41,6 @@ namespace PatternRecognition
         {
             InitializeComponent();
 
-            samples = new Bitmap[NUMBER_SAMPLES];
-
             binaryMatrix = new int[15, 10];
 
             neuralsInputLayer = new int[150];
@@ -50,17 +49,28 @@ namespace PatternRecognition
 
             weightsInputAndHiddenLayer = new double[150, 250];
             weightsHiddenAndOutputLayer = new double[250, 4];
-            InitializeWeights();
 
             errorsOutputLayer = new double[4];
             errorsHiddenLayer = new double[250];
+
+            InitializeWeights();
         }
 
+        /// <summary>
+        /// hàm sigmoid
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         double Sigmoid(double x)
         {
             return 2 / (1 + Math.Exp(-0.014 * x)) - 1;
         }
 
+        /// <summary>
+        /// đạo hàm sigmoid
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         double DerivativeSigmoid(double x)
         {
             return (1 - x * x) / 2;
@@ -125,7 +135,7 @@ namespace PatternRecognition
         /// <summary>
         /// Nạp từ tầng hidden sang output
         /// </summary>
-        void ImportHiddenToOutputLayer(bool debug = false)
+        void ImportHiddenToOutputLayer()
         {
             for (int j = 0; j < 4; ++j)
             {
@@ -135,15 +145,13 @@ namespace PatternRecognition
                     sum += weightsHiddenAndOutputLayer[i, j] * neuralsHiddenLayer[i];
                 }
                 neuralsOutputLayer[j] = Sigmoid(sum);
-
-                if (debug)
-                    Console.Write(neuralsOutputLayer[j].ToString("N2") + "\t");
             }
-
-            if (debug)
-                Console.WriteLine();
         }
 
+        /// <summary>
+        /// cập nhật lỗi
+        /// </summary>
+        /// <param name="delta"></param>
         void SetErrors(double[] delta)
         {
             for (int i = 0; i < 4; ++i)
@@ -165,6 +173,10 @@ namespace PatternRecognition
             }
         }
 
+        /// <summary>
+        /// tính lỗi trung bình
+        /// </summary>
+        /// <returns></returns>
         double AverageErrors()
         {
             double sum = 0;
@@ -175,6 +187,9 @@ namespace PatternRecognition
             return Math.Abs(sum) / 4;
         }
 
+        /// <summary>
+        /// điều chỉnh trọng số
+        /// </summary>
         void FixWeights()
         {
             for (int i = 0; i < 150; ++i)
@@ -194,13 +209,17 @@ namespace PatternRecognition
             }
         }
 
+        /// <summary>
+        /// train một chữ số
+        /// </summary>
+        /// <param name="number">số được train</param>
         void TrainNumber(int number)
         {
             ImportBinaryMatrixToInputLayer();
 
             ImportInputToHiddenLayer();
 
-            ImportHiddenToOutputLayer(true);
+            ImportHiddenToOutputLayer();
 
             double[] delta = new double[4]; // Mảng lưu sai số
 
@@ -219,6 +238,19 @@ namespace PatternRecognition
         }
 
         /// <summary>
+        /// chuẩn hóa tấm hình
+        /// </summary>
+        /// <param name="image"></param>
+        Bitmap SimplifyImage(Bitmap image)
+        {
+            Tuple<int, int, int, int> boundary = Utilities.FindSentenceBoundary(image);
+            image = Utilities.CropBitmap(image, boundary.Item1 + 1, boundary.Item2 + 1, boundary.Item3 - boundary.Item1 - 1, boundary.Item4 - boundary.Item2 - 1);
+            image = Utilities.ResizeImage(image, 10, 15);
+
+            return image;
+        }
+
+        /// <summary>
         /// so sánh với giá trị ngưỡng để chuyển thành bit 0 hoặc 1
         /// </summary>
         /// <param name="value"></param>
@@ -233,6 +265,9 @@ namespace PatternRecognition
             return result;
         }
 
+        /// <summary>
+        /// nhận diện
+        /// </summary>
         void Recognize()
         {
             ImportBinaryMatrixToInputLayer();
@@ -249,6 +284,11 @@ namespace PatternRecognition
             MessageBox.Show("This is " + number.ToString());
         }
 
+        /// <summary>
+        /// chuyển đổi chuỗi nhị phân sang số nguyên
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         int ConvertBinaryStringToInteger(string input)
         {
             int sum = 0;
@@ -262,6 +302,11 @@ namespace PatternRecognition
             return sum;
         }
 
+        /// <summary>
+        /// chuyển đổi số nguyên sang chuỗi nhị phân
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         string ConvertIntegerToBinaryString(int input)
         {
             string binaryString = "";
@@ -277,14 +322,9 @@ namespace PatternRecognition
 
         private void recognizeButton_Click(object sender, EventArgs e)
         {
-            imageRecognition = (Bitmap)pictureRecognition.Image;
-            Tuple<int, int, int, int> boundary = Utilities.FindSentenceBoundary(imageRecognition);
+            imageRecognition = (Bitmap)recognitionPictureBox.Image;
 
-            imageRecognition = Utilities.CropBitmap(imageRecognition, boundary.Item1 + 1, boundary.Item2 + 1, boundary.Item3 - boundary.Item1 - 1, boundary.Item4 - boundary.Item2 - 1);
-
-            imageRecognition = Utilities.ResizeImage(imageRecognition, 10, 15);
-
-            //imageRecognition.Save("recognize.png");
+            imageRecognition = SimplifyImage(imageRecognition);
 
             Utilities.ConvertImageToBinaryMatrix(imageRecognition, binaryMatrix);
 
@@ -300,32 +340,29 @@ namespace PatternRecognition
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 imageRecognition = new Bitmap(openFileDialog1.FileName);
-                pictureRecognition.Image = (Image)imageRecognition;
+                recognitionPictureBox.Image = (Image)imageRecognition;
             }
         }
 
         private void learningButton_Click(object sender, EventArgs e)
         {
+            NUMBER_SAMPLES = (int)numericUpDown1.Value;
             for (int l = 0; l < EPOCHS; l++)
             {
                 EValue = 0;
                 for (int i = 0; i < NUMBER_SAMPLES; i++)
                 {
                     Bitmap imageLearning = samples[i];
-                    Tuple<int, int, int, int> boundary = Utilities.FindSentenceBoundary(imageLearning);
-
-                    imageLearning = Utilities.CropBitmap(imageLearning, boundary.Item1 + 1, boundary.Item2 + 1, boundary.Item3 - boundary.Item1 - 1, boundary.Item4 - boundary.Item2 - 1);
-                    imageLearning = Utilities.ResizeImage(imageLearning, 10, 15);
 
                     if (l == 0)
-                        imageLearning.Save(i + "newImage.png");
+                        imageLearning.Save(i + "simplify.png");
 
                     Utilities.ConvertImageToBinaryMatrix(imageLearning, binaryMatrix);
 
-                    TrainNumber(i);
+                    TrainNumber(i % 10);
                 }
                 EValue /= NUMBER_SAMPLES;
-                Console.WriteLine(EValue.ToString());
+                Console.WriteLine(l.ToString() + ": " + EValue.ToString());
                 if (EValue < E_MAX)
                     break;
             }
@@ -336,12 +373,33 @@ namespace PatternRecognition
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 pathTextBox.Text = folderBrowserDialog1.SelectedPath;
-                for (int i = 0; i < 10; i++)
-                    samples[i] = (Bitmap)Image.FromFile(pathTextBox.Text + "/" + i + ".jpg");
+
+                NUMBER_SAMPLES = (int)numericUpDown1.Value;
+                samples = new Bitmap[NUMBER_SAMPLES];
+
+                for (int i = 0; i < NUMBER_SAMPLES; i++)
+                {
+                    samples[i] = (Bitmap)Image.FromFile(pathTextBox.Text + "/" + i + ".png");
+                    samples[i] = SimplifyImage(samples[i]);
+                }
             }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter writer = new StreamWriter(saveFileDialog1.FileName);
+                for (int i = 0; i < 150; i++)
+                    for (int j = 0; j < 250; j++)
+                        writer.WriteLine(weightsInputAndHiddenLayer[i, j]);
+                for (int i = 0; i < 250; i++)
+                    for (int j = 0; j < 4; j++)
+                        writer.WriteLine(weightsHiddenAndOutputLayer[i, j]);
+            }
+        }
+
+        private void importButton_Click(object sender, EventArgs e)
         {
 
         }

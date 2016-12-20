@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.recognizeButton = new System.Windows.Forms.Button();
-            this.pictureRecognition = new System.Windows.Forms.PictureBox();
+            this.recognitionPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.browsingButton = new System.Windows.Forms.Button();
             this.learningButton = new System.Windows.Forms.Button();
@@ -39,16 +39,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.saveButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureRecognition)).BeginInit();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.importButton = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.recognitionPictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // recognizeButton
             // 
-            this.recognizeButton.Location = new System.Drawing.Point(280, 104);
+            this.recognizeButton.Location = new System.Drawing.Point(299, 104);
             this.recognizeButton.Name = "recognizeButton";
             this.recognizeButton.Size = new System.Drawing.Size(97, 48);
             this.recognizeButton.TabIndex = 1;
@@ -56,16 +61,16 @@
             this.recognizeButton.UseVisualStyleBackColor = true;
             this.recognizeButton.Click += new System.EventHandler(this.recognizeButton_Click);
             // 
-            // pictureRecognition
+            // recognitionPictureBox
             // 
-            this.pictureRecognition.BackColor = System.Drawing.Color.White;
-            this.pictureRecognition.Image = ((System.Drawing.Image)(resources.GetObject("pictureRecognition.Image")));
-            this.pictureRecognition.Location = new System.Drawing.Point(28, 37);
-            this.pictureRecognition.Name = "pictureRecognition";
-            this.pictureRecognition.Size = new System.Drawing.Size(67, 53);
-            this.pictureRecognition.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureRecognition.TabIndex = 2;
-            this.pictureRecognition.TabStop = false;
+            this.recognitionPictureBox.BackColor = System.Drawing.Color.White;
+            this.recognitionPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("recognitionPictureBox.Image")));
+            this.recognitionPictureBox.Location = new System.Drawing.Point(28, 37);
+            this.recognitionPictureBox.Name = "recognitionPictureBox";
+            this.recognitionPictureBox.Size = new System.Drawing.Size(67, 53);
+            this.recognitionPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.recognitionPictureBox.TabIndex = 2;
+            this.recognitionPictureBox.TabStop = false;
             // 
             // openFileDialog1
             // 
@@ -73,7 +78,7 @@
             // 
             // browsingButton
             // 
-            this.browsingButton.Location = new System.Drawing.Point(280, 37);
+            this.browsingButton.Location = new System.Drawing.Point(299, 37);
             this.browsingButton.Name = "browsingButton";
             this.browsingButton.Size = new System.Drawing.Size(97, 45);
             this.browsingButton.TabIndex = 3;
@@ -83,9 +88,9 @@
             // 
             // learningButton
             // 
-            this.learningButton.Location = new System.Drawing.Point(280, 83);
+            this.learningButton.Location = new System.Drawing.Point(299, 106);
             this.learningButton.Name = "learningButton";
-            this.learningButton.Size = new System.Drawing.Size(110, 32);
+            this.learningButton.Size = new System.Drawing.Size(97, 41);
             this.learningButton.TabIndex = 4;
             this.learningButton.Text = "Learn";
             this.learningButton.UseVisualStyleBackColor = true;
@@ -93,16 +98,16 @@
             // 
             // pathTextBox
             // 
-            this.pathTextBox.Location = new System.Drawing.Point(50, 38);
+            this.pathTextBox.Location = new System.Drawing.Point(89, 61);
             this.pathTextBox.Name = "pathTextBox";
-            this.pathTextBox.Size = new System.Drawing.Size(214, 20);
+            this.pathTextBox.Size = new System.Drawing.Size(196, 20);
             this.pathTextBox.TabIndex = 6;
             // 
             // browseFolderButton
             // 
-            this.browseFolderButton.Location = new System.Drawing.Point(280, 33);
+            this.browseFolderButton.Location = new System.Drawing.Point(299, 56);
             this.browseFolderButton.Name = "browseFolderButton";
-            this.browseFolderButton.Size = new System.Drawing.Size(110, 28);
+            this.browseFolderButton.Size = new System.Drawing.Size(97, 28);
             this.browseFolderButton.TabIndex = 7;
             this.browseFolderButton.Text = "Browse folder";
             this.browseFolderButton.UseVisualStyleBackColor = true;
@@ -111,15 +116,15 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 41);
+            this.label1.Location = new System.Drawing.Point(6, 64);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Path :";
+            this.label1.Text = "Samples path :";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.pictureRecognition);
+            this.groupBox1.Controls.Add(this.recognitionPictureBox);
             this.groupBox1.Controls.Add(this.recognizeButton);
             this.groupBox1.Controls.Add(this.browsingButton);
             this.groupBox1.Location = new System.Drawing.Point(18, 12);
@@ -131,6 +136,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.numericUpDown1);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.importButton);
             this.groupBox2.Controls.Add(this.saveButton);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.learningButton);
@@ -138,19 +146,14 @@
             this.groupBox2.Controls.Add(this.browseFolderButton);
             this.groupBox2.Location = new System.Drawing.Point(18, 191);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(414, 139);
+            this.groupBox2.Size = new System.Drawing.Size(414, 166);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Learning";
             // 
-            // folderBrowserDialog1
-            // 
-            this.folderBrowserDialog1.SelectedPath = "D:\\Documents\\Visual Studio 2015\\Projects\\PatternRecognition\\PatternRecognition\\Sa" +
-    "mples";
-            // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(62, 83);
+            this.saveButton.Location = new System.Drawing.Point(105, 110);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(100, 32);
             this.saveButton.TabIndex = 9;
@@ -158,28 +161,70 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.SelectedPath = "D:\\Documents\\Visual Studio 2015\\Projects\\PatternRecognition\\PatternRecognition\\Sa" +
+    "mples";
+            // 
+            // importButton
+            // 
+            this.importButton.Location = new System.Drawing.Point(9, 110);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(90, 32);
+            this.importButton.TabIndex = 10;
+            this.importButton.Text = "Import weights";
+            this.importButton.UseVisualStyleBackColor = true;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Number of samples :";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(115, 30);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 12;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 345);
+            this.ClientSize = new System.Drawing.Size(450, 369);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pattern Recognition";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureRecognition)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.recognitionPictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.Button recognizeButton;
-        private System.Windows.Forms.PictureBox pictureRecognition;
+        private System.Windows.Forms.PictureBox recognitionPictureBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button browsingButton;
         private System.Windows.Forms.Button learningButton;
@@ -190,6 +235,10 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button importButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

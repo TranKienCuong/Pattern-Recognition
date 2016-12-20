@@ -25,7 +25,7 @@ namespace PatternRecognition
             {
                 for (int i = 0; i < image.Width; ++i)
                 {
-                    if (image.GetPixel(i, j).R != 255 && image.GetPixel(i, j).B != 255 && image.GetPixel(i, j).G != 255)
+                    if (image.GetPixel(i, j).R <= 245 && image.GetPixel(i, j).B <= 245 && image.GetPixel(i, j).G <= 245)
                     {
                         top_Y = j - 1;
                         check = true;
@@ -43,7 +43,7 @@ namespace PatternRecognition
             {
                 for (int j = 0; j < image.Height; ++j)
                 {
-                    if (image.GetPixel(i, j).R != 255 && image.GetPixel(i, j).B != 255 && image.GetPixel(i, j).G != 255)
+                    if (image.GetPixel(i, j).R <= 245 && image.GetPixel(i, j).B <= 245 && image.GetPixel(i, j).G <= 245)
                     {
                         top_X = i - 1;
                         check = true;
@@ -61,7 +61,7 @@ namespace PatternRecognition
             {
                 for (int i = image.Width - 1; i >= 0; --i)
                 {
-                    if (image.GetPixel(i, j).R != 255 && image.GetPixel(i, j).B != 255 && image.GetPixel(i, j).G != 255)
+                    if (image.GetPixel(i, j).R <= 245 && image.GetPixel(i, j).B <= 245 && image.GetPixel(i, j).G <= 245)
                     {
                         bottom_Y = j + 1;
                         check = true;
@@ -79,7 +79,7 @@ namespace PatternRecognition
             {
                 for (int j = image.Height - 1; j >= 0; --j)
                 {
-                    if (image.GetPixel(i, j).R != 255 && image.GetPixel(i, j).B != 255 && image.GetPixel(i, j).G != 255)
+                    if (image.GetPixel(i, j).R <= 245 && image.GetPixel(i, j).B <= 245 && image.GetPixel(i, j).G <= 245)
                     {
                         bottom_X = i + 1;
                         check = true;
@@ -106,7 +106,7 @@ namespace PatternRecognition
             {
                 for (int j = 0; j < binaryMatrix.GetLength(1); ++j)
                 {
-                    if (bitmap.GetPixel(j, i).R != 255 && bitmap.GetPixel(j, i).B != 255 && bitmap.GetPixel(j, i).G != 255) // Image(rong, cao) >< Arr[cao, rong]
+                    if (bitmap.GetPixel(j, i).R <= 245 && bitmap.GetPixel(j, i).B <= 245 && bitmap.GetPixel(j, i).G <= 245) // Image(rong, cao) >< Arr[cao, rong]
                     {
                         binaryMatrix[i, j] = 1;
                     }
