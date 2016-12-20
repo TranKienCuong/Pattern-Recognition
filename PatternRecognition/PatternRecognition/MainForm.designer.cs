@@ -39,13 +39,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.resetButton = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.importButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.resetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.recognitionPictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -66,10 +66,10 @@
             // 
             this.recognitionPictureBox.BackColor = System.Drawing.Color.White;
             this.recognitionPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("recognitionPictureBox.Image")));
-            this.recognitionPictureBox.Location = new System.Drawing.Point(28, 37);
+            this.recognitionPictureBox.Location = new System.Drawing.Point(28, 29);
             this.recognitionPictureBox.Name = "recognitionPictureBox";
-            this.recognitionPictureBox.Size = new System.Drawing.Size(67, 53);
-            this.recognitionPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.recognitionPictureBox.Size = new System.Drawing.Size(276, 150);
+            this.recognitionPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.recognitionPictureBox.TabIndex = 2;
             this.recognitionPictureBox.TabStop = false;
             // 
@@ -125,9 +125,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.recognitionPictureBox);
             this.groupBox1.Controls.Add(this.recognizeButton);
             this.groupBox1.Controls.Add(this.browsingButton);
+            this.groupBox1.Controls.Add(this.recognitionPictureBox);
             this.groupBox1.Location = new System.Drawing.Point(18, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(465, 198);
@@ -153,9 +153,24 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Learning";
             // 
+            // resetButton
+            // 
+            this.resetButton.Location = new System.Drawing.Point(13, 106);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(89, 31);
+            this.resetButton.TabIndex = 13;
+            this.resetButton.Text = "Reset weights";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(134, 29);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            140,
+            0,
+            0,
+            0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
             10,
             0,
@@ -165,7 +180,7 @@
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 12;
             this.numericUpDown1.Value = new decimal(new int[] {
-            30,
+            140,
             0,
             0,
             0});
@@ -204,16 +219,6 @@
             this.folderBrowserDialog1.SelectedPath = "D:\\Documents\\Visual Studio 2015\\Projects\\PatternRecognition\\PatternRecognition\\Sa" +
     "mples";
             // 
-            // resetButton
-            // 
-            this.resetButton.Location = new System.Drawing.Point(13, 106);
-            this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(89, 31);
-            this.resetButton.TabIndex = 13;
-            this.resetButton.Text = "Reset weights";
-            this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,7 +231,6 @@
             this.Text = "Pattern Recognition";
             ((System.ComponentModel.ISupportInitialize)(this.recognitionPictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

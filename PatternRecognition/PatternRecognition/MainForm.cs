@@ -14,7 +14,7 @@ namespace PatternRecognition
 {
     public partial class MainForm : Form
     {
-        static int NUMBER_SAMPLES = 30;
+        static int NUMBER_SAMPLES = 140;
         const int BIAS = 30;
         const int EPOCHS = 300;
         const double E_MAX = 0.001;
