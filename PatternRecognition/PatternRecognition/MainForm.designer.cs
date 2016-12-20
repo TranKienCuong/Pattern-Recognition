@@ -39,12 +39,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.importButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.importButton = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.resetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.recognitionPictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -53,7 +54,7 @@
             // 
             // recognizeButton
             // 
-            this.recognizeButton.Location = new System.Drawing.Point(299, 104);
+            this.recognizeButton.Location = new System.Drawing.Point(330, 104);
             this.recognizeButton.Name = "recognizeButton";
             this.recognizeButton.Size = new System.Drawing.Size(97, 48);
             this.recognizeButton.TabIndex = 1;
@@ -78,7 +79,7 @@
             // 
             // browsingButton
             // 
-            this.browsingButton.Location = new System.Drawing.Point(299, 37);
+            this.browsingButton.Location = new System.Drawing.Point(330, 37);
             this.browsingButton.Name = "browsingButton";
             this.browsingButton.Size = new System.Drawing.Size(97, 45);
             this.browsingButton.TabIndex = 3;
@@ -88,7 +89,7 @@
             // 
             // learningButton
             // 
-            this.learningButton.Location = new System.Drawing.Point(299, 106);
+            this.learningButton.Location = new System.Drawing.Point(330, 103);
             this.learningButton.Name = "learningButton";
             this.learningButton.Size = new System.Drawing.Size(97, 41);
             this.learningButton.TabIndex = 4;
@@ -98,14 +99,14 @@
             // 
             // pathTextBox
             // 
-            this.pathTextBox.Location = new System.Drawing.Point(89, 61);
+            this.pathTextBox.Location = new System.Drawing.Point(108, 60);
             this.pathTextBox.Name = "pathTextBox";
             this.pathTextBox.Size = new System.Drawing.Size(196, 20);
             this.pathTextBox.TabIndex = 6;
             // 
             // browseFolderButton
             // 
-            this.browseFolderButton.Location = new System.Drawing.Point(299, 56);
+            this.browseFolderButton.Location = new System.Drawing.Point(330, 53);
             this.browseFolderButton.Name = "browseFolderButton";
             this.browseFolderButton.Size = new System.Drawing.Size(97, 28);
             this.browseFolderButton.TabIndex = 7;
@@ -116,7 +117,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 64);
+            this.label1.Location = new System.Drawing.Point(25, 63);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 8;
@@ -129,13 +130,14 @@
             this.groupBox1.Controls.Add(this.browsingButton);
             this.groupBox1.Location = new System.Drawing.Point(18, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(414, 173);
+            this.groupBox1.Size = new System.Drawing.Size(465, 198);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Recognition";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.resetButton);
             this.groupBox2.Controls.Add(this.numericUpDown1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.importButton);
@@ -144,50 +146,16 @@
             this.groupBox2.Controls.Add(this.learningButton);
             this.groupBox2.Controls.Add(this.pathTextBox);
             this.groupBox2.Controls.Add(this.browseFolderButton);
-            this.groupBox2.Location = new System.Drawing.Point(18, 191);
+            this.groupBox2.Location = new System.Drawing.Point(18, 216);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(414, 166);
+            this.groupBox2.Size = new System.Drawing.Size(465, 166);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Learning";
             // 
-            // saveButton
-            // 
-            this.saveButton.Location = new System.Drawing.Point(105, 110);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(100, 32);
-            this.saveButton.TabIndex = 9;
-            this.saveButton.Text = "Save weights";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // folderBrowserDialog1
-            // 
-            this.folderBrowserDialog1.SelectedPath = "D:\\Documents\\Visual Studio 2015\\Projects\\PatternRecognition\\PatternRecognition\\Sa" +
-    "mples";
-            // 
-            // importButton
-            // 
-            this.importButton.Location = new System.Drawing.Point(9, 110);
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(90, 32);
-            this.importButton.TabIndex = 10;
-            this.importButton.Text = "Import weights";
-            this.importButton.UseVisualStyleBackColor = true;
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Number of samples :";
-            // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(115, 30);
+            this.numericUpDown1.Location = new System.Drawing.Point(134, 29);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             10,
             0,
@@ -202,11 +170,55 @@
             0,
             0});
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Number of samples :";
+            // 
+            // importButton
+            // 
+            this.importButton.Location = new System.Drawing.Point(108, 106);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(90, 32);
+            this.importButton.TabIndex = 10;
+            this.importButton.Text = "Import weights";
+            this.importButton.UseVisualStyleBackColor = true;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(204, 106);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(100, 32);
+            this.saveButton.TabIndex = 9;
+            this.saveButton.Text = "Save weights";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.SelectedPath = "D:\\Documents\\Visual Studio 2015\\Projects\\PatternRecognition\\PatternRecognition\\Sa" +
+    "mples";
+            // 
+            // resetButton
+            // 
+            this.resetButton.Location = new System.Drawing.Point(13, 106);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(89, 31);
+            this.resetButton.TabIndex = 13;
+            this.resetButton.Text = "Reset weights";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 369);
+            this.ClientSize = new System.Drawing.Size(495, 394);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MainForm";
@@ -239,6 +251,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button resetButton;
     }
 }
 

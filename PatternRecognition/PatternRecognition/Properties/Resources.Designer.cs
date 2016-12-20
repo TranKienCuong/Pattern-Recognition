@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PatternRecognition.Properties
-{
-
-
+namespace PatternRecognition.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,49 +22,77 @@ namespace PatternRecognition.Properties
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PatternRecognition.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -24.148596474456
+        ///-12.4963912052614
+        ///-21.7442363836645
+        ///-20.0602772897717
+        ///-17.3149904363466
+        ///5.9761013545906
+        ///14.3825251699878
+        ///5.40596974489513
+        ///-28.3113016142378
+        ///14.0385188121135
+        ///6.61625117770689
+        ///-16.2461107611161
+        ///-9.11759598292412
+        ///-5.44050556307894
+        ///-0.400700563243314
+        ///11.4779317140854
+        ///-19.0330928774426
+        ///0.648589931233499
+        ///9.18931212579139
+        ///-7.72466906019578
+        ///18.3488586653713
+        ///3.5373847520486
+        ///28.8031255340893
+        ///28.7164162567437
+        ///28.945336144292
+        ///-3.44763422466548
+        ///-12.3349094129026
+        ///31.43418071893 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string default_weight {
+            get {
+                return ResourceManager.GetString("default_weight", resourceCulture);
             }
         }
     }

@@ -77,25 +77,39 @@ namespace PatternRecognition
         }
 
         /// <summary>
-        /// Khởi tạo trọng số random từ -bias đến bias
+        /// Khởi tạo trọng số từ bộ trọng số hoặc tạo bộ mới random từ -bias đến bias
         /// </summary>
-        void InitializeWeights()
+        void InitializeWeights(bool reset = false)
         {
-            Random r = new Random();
-            for (int i = 0; i < 150; ++i)
+            if (reset)
             {
-                for (int j = 0; j < 250; ++j)
+                Random r = new Random();
+                for (int i = 0; i < 150; i++)
                 {
-                    weightsInputAndHiddenLayer[i, j] = r.Next(-BIAS, BIAS);
+                    for (int j = 0; j < 250; j++)
+                    {
+                        weightsInputAndHiddenLayer[i, j] = r.Next(-BIAS, BIAS);
+                    }
+                }
+
+                for (int i = 0; i < 250; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        weightsHiddenAndOutputLayer[i, j] = r.Next(-BIAS, BIAS);
+                    }
                 }
             }
-
-            for (int i = 0; i < 250; ++i)
+            else
             {
-                for (int j = 0; j < 4; ++j)
-                {
-                    weightsHiddenAndOutputLayer[i, j] = r.Next(-BIAS, BIAS);
-                }
+                string[] weights = Properties.Resources.default_weight.Split('\n');
+                int k = 0;
+                for (int i = 0; i < 150; i++)
+                    for (int j = 0; j < 250; j++)
+                        weightsInputAndHiddenLayer[i, j] = double.Parse(weights[k++]);
+                for (int i = 0; i < 250; i++)
+                    for (int j = 0; j < 4; j++)
+                        weightsHiddenAndOutputLayer[i, j] = double.Parse(weights[k++]);
             }
         }
 
@@ -106,9 +120,9 @@ namespace PatternRecognition
         {
             int k = 0;
 
-            for (int i = 0; i < 15; ++i)
+            for (int i = 0; i < 15; i++)
             {
-                for (int j = 0; j < 10; ++j)
+                for (int j = 0; j < 10; j++)
                 {
                     neuralsInputLayer[k] = binaryMatrix[i, j];
                     k++;
@@ -121,10 +135,10 @@ namespace PatternRecognition
         /// </summary>
         void ImportInputToHiddenLayer()
         {
-            for (int j = 0; j < 250; ++j)
+            for (int j = 0; j < 250; j++)
             {
                 double sum = 0;
-                for (int i = 0; i < 150; ++i)
+                for (int i = 0; i < 150; i++)
                 {
                     sum += weightsInputAndHiddenLayer[i, j] * neuralsInputLayer[i];
                 }
@@ -137,10 +151,10 @@ namespace PatternRecognition
         /// </summary>
         void ImportHiddenToOutputLayer()
         {
-            for (int j = 0; j < 4; ++j)
+            for (int j = 0; j < 4; j++)
             {
                 double sum = 0;
-                for (int i = 0; i < 250; ++i)
+                for (int i = 0; i < 250; i++)
                 {
                     sum += weightsHiddenAndOutputLayer[i, j] * neuralsHiddenLayer[i];
                 }
@@ -154,17 +168,17 @@ namespace PatternRecognition
         /// <param name="delta"></param>
         void SetErrors(double[] delta)
         {
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 4; i++)
             {
                 errorsOutputLayer[i] = delta[i] * DerivativeSigmoid(neuralsOutputLayer[i]);
             }
 
-            for (int i = 0; i < 150; ++i)
+            for (int i = 0; i < 150; i++)
             {
-                for (int j = 0; j < 250; ++j)
+                for (int j = 0; j < 250; j++)
                 {
                     double sum = 0;
-                    for (int k = 0; k < 4; ++k)
+                    for (int k = 0; k < 4; k++)
                     {
                         sum += (weightsHiddenAndOutputLayer[j, k] * errorsOutputLayer[k]);
                     }
@@ -180,7 +194,7 @@ namespace PatternRecognition
         double AverageErrors()
         {
             double sum = 0;
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 4; i++)
             {
                 sum += errorsOutputLayer[i];
             }
@@ -192,17 +206,17 @@ namespace PatternRecognition
         /// </summary>
         void FixWeights()
         {
-            for (int i = 0; i < 150; ++i)
+            for (int i = 0; i < 150; i++)
             {
-                for (int j = 0; j < 250; ++j)
+                for (int j = 0; j < 250; j++)
                 {
                     weightsInputAndHiddenLayer[i, j] += (LEARNING_RATE * neuralsInputLayer[i] * errorsHiddenLayer[j]);
                 }
             }
 
-            for (int i = 0; i < 250; ++i)
+            for (int i = 0; i < 250; i++)
             {
-                for (int j = 0; j < 4; ++j)
+                for (int j = 0; j < 4; j++)
                 {
                     weightsHiddenAndOutputLayer[i, j] += (LEARNING_RATE * neuralsHiddenLayer[i] * errorsOutputLayer[j]);
                 }
@@ -225,7 +239,7 @@ namespace PatternRecognition
 
             string binaryString = ConvertIntegerToBinaryString(number);
 
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 4; i++)
             {
                 delta[i] = double.Parse(binaryString[i].ToString()) - neuralsOutputLayer[i];
             }
@@ -387,6 +401,10 @@ namespace PatternRecognition
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            saveFileDialog1.Title = "Save weights";
+            saveFileDialog1.FileName = "";
+            saveFileDialog1.Filter = "Text Files (.txt)|*.txt";
+
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 StreamWriter writer = new StreamWriter(saveFileDialog1.FileName);
@@ -396,12 +414,32 @@ namespace PatternRecognition
                 for (int i = 0; i < 250; i++)
                     for (int j = 0; j < 4; j++)
                         writer.WriteLine(weightsHiddenAndOutputLayer[i, j]);
+                writer.Close();
             }
         }
 
         private void importButton_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Title = "Import weights for training";
+            openFileDialog1.FileName = "";
+            openFileDialog1.Filter = "Text Files (.txt)|*.txt";
 
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                StreamReader reader = new StreamReader(openFileDialog1.FileName);
+                for (int i = 0; i < 150; i++)
+                    for (int j = 0; j < 250; j++)
+                        weightsInputAndHiddenLayer[i, j] = double.Parse(reader.ReadLine());
+                for (int i = 0; i < 250; i++)
+                    for (int j = 0; j < 4; j++)
+                        weightsHiddenAndOutputLayer[i, j] = double.Parse(reader.ReadLine());
+                reader.Close();
+            }
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            InitializeWeights(true);
         }
     }
 }
