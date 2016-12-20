@@ -13,14 +13,18 @@ namespace PatternRecognition
 {
     public partial class MainForm : Form
     {
-        int[,] binaryMatrix = new int[15, 10];
-        int bias = 30;
+        const int NUMBER_SAMPLES = 10;
+        const int BIAS = 30;
+        const int EPOCHS = 400;
+        const double E_MAX = 0.0001;
+        const double LEARNING_RATE = 0.1;
+
+        double EValue = 0;
+
         Bitmap imageRecognition;
-        Bitmap[] samples = new Bitmap[10];
-        int epochs = 300;
-        double E = 0;
-        double EMax = 0.0001;
-        double learningRate = 1;
+        Bitmap[] samples;
+
+        int[,] binaryMatrix;
 
         int[] neuralsInputLayer;
         double[] neuralsHiddenLayer;
@@ -29,11 +33,16 @@ namespace PatternRecognition
         double[,] weightsInputAndHiddenLayer;
         double[,] weightsHiddenAndOutputLayer;
 
-        double[] errors;
+        double[] errorsHiddenLayer;
+        double[] errorsOutputLayer;
 
         public MainForm()
         {
             InitializeComponent();
+
+            samples = new Bitmap[NUMBER_SAMPLES];
+
+            binaryMatrix = new int[15, 10];
 
             neuralsInputLayer = new int[150];
             neuralsHiddenLayer = new double[250];
@@ -43,7 +52,8 @@ namespace PatternRecognition
             weightsHiddenAndOutputLayer = new double[250, 4];
             InitializeWeights();
 
-            errors = new double[4];
+            errorsOutputLayer = new double[4];
+            errorsHiddenLayer = new double[250];
         }
 
         double Sigmoid(double x)
@@ -66,7 +76,7 @@ namespace PatternRecognition
             {
                 for (int j = 0; j < 250; ++j)
                 {
-                    weightsInputAndHiddenLayer[i, j] = r.Next(-bias, bias);
+                    weightsInputAndHiddenLayer[i, j] = r.Next(-BIAS, BIAS);
                 }
             }
 
@@ -74,7 +84,7 @@ namespace PatternRecognition
             {
                 for (int j = 0; j < 4; ++j)
                 {
-                    weightsHiddenAndOutputLayer[i, j] = r.Next(-bias, bias);
+                    weightsHiddenAndOutputLayer[i, j] = r.Next(-BIAS, BIAS);
                 }
             }
         }
@@ -108,7 +118,6 @@ namespace PatternRecognition
                 {
                     sum += weightsInputAndHiddenLayer[i, j] * neuralsInputLayer[i];
                 }
-                //sum -= bias;
                 neuralsHiddenLayer[j] = Sigmoid(sum);
             }
         }
@@ -125,7 +134,6 @@ namespace PatternRecognition
                 {
                     sum += weightsHiddenAndOutputLayer[i, j] * neuralsHiddenLayer[i];
                 }
-                //sum -= bias;
                 neuralsOutputLayer[j] = Sigmoid(sum);
 
                 if (debug)
@@ -140,28 +148,7 @@ namespace PatternRecognition
         {
             for (int i = 0; i < 4; ++i)
             {
-                errors[i] = delta[i] * DerivativeSigmoid(neuralsOutputLayer[i]);
-            }
-        }
-
-        double AverageErrors()
-        {
-            double sum = 0;
-            for (int i = 0; i < 4; ++i)
-            {
-                sum += errors[i];
-            }
-            return Math.Abs(sum) / 4;
-        }
-
-        void FixWeights()
-        {
-            for (int i = 0; i < 250; ++i)
-            {
-                for (int j = 0; j < 4; ++j)
-                {
-                    weightsHiddenAndOutputLayer[i, j] += learningRate * neuralsHiddenLayer[i] * errors[j];
-                }
+                errorsOutputLayer[i] = delta[i] * DerivativeSigmoid(neuralsOutputLayer[i]);
             }
 
             for (int i = 0; i < 150; ++i)
@@ -171,9 +158,38 @@ namespace PatternRecognition
                     double sum = 0;
                     for (int k = 0; k < 4; ++k)
                     {
-                        sum += weightsHiddenAndOutputLayer[j, k] * errors[k];
+                        sum += (weightsHiddenAndOutputLayer[j, k] * errorsOutputLayer[k]);
                     }
-                    weightsInputAndHiddenLayer[i, j] += learningRate * neuralsInputLayer[i] * DerivativeSigmoid(neuralsHiddenLayer[j]) * sum;
+                    errorsHiddenLayer[j] = DerivativeSigmoid(neuralsHiddenLayer[j]) * sum;
+                }
+            }
+        }
+
+        double AverageErrors()
+        {
+            double sum = 0;
+            for (int i = 0; i < 4; ++i)
+            {
+                sum += errorsOutputLayer[i];
+            }
+            return Math.Abs(sum) / 4;
+        }
+
+        void FixWeights()
+        {
+            for (int i = 0; i < 150; ++i)
+            {
+                for (int j = 0; j < 250; ++j)
+                {
+                    weightsInputAndHiddenLayer[i, j] += (LEARNING_RATE * neuralsInputLayer[i] * errorsHiddenLayer[j]);
+                }
+            }
+
+            for (int i = 0; i < 250; ++i)
+            {
+                for (int j = 0; j < 4; ++j)
+                {
+                    weightsHiddenAndOutputLayer[i, j] += (LEARNING_RATE * neuralsHiddenLayer[i] * errorsOutputLayer[j]);
                 }
             }
         }
@@ -186,12 +202,6 @@ namespace PatternRecognition
 
             ImportHiddenToOutputLayer(true);
 
-            //for (int i = 0; i < 4; ++i)
-            //{
-            //    Console.Write(neuralsOutputLayer[i] + "\t");
-            //}
-            //Console.WriteLine();
-
             double[] delta = new double[4]; // Mảng lưu sai số
 
             string binaryString = ConvertIntegerToBinaryString(number);
@@ -203,9 +213,9 @@ namespace PatternRecognition
 
             SetErrors(delta);
 
-            E += AverageErrors();
-
             FixWeights();
+
+            EValue += AverageErrors();
         }
 
         /// <summary>
@@ -242,11 +252,11 @@ namespace PatternRecognition
         int ConvertBinaryStringToInteger(string input)
         {
             int sum = 0;
-            for (int i = 0; i < input.Length; ++i)
+            for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] == '1')
                 {
-                    sum += (int)Math.Pow(2, i);
+                    sum += (int)Math.Pow(2, input.Length - i - 1);
                 }
             }
             return sum;
@@ -256,9 +266,9 @@ namespace PatternRecognition
         {
             string binaryString = "";
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 3; i >= 0; i--)
             {
-                binaryString += (input % 2);
+                binaryString = (input % 2).ToString() + binaryString;
                 input /= 2;
             }
 
@@ -274,7 +284,7 @@ namespace PatternRecognition
 
             imageRecognition = Utilities.ResizeImage(imageRecognition, 10, 15);
 
-            imageRecognition.Save("simplify3.png");
+            //imageRecognition.Save("recognize.png");
 
             Utilities.ConvertImageToBinaryMatrix(imageRecognition, binaryMatrix);
 
@@ -285,7 +295,6 @@ namespace PatternRecognition
         {
             openFileDialog1.Title = "Open image need to recognize";
             openFileDialog1.FileName = "";
-            //openFileDialog1.InitialDirectory = @"C:\Users\Wiz\Desktop";
             openFileDialog1.Filter = "Image Files (.jpg, .png)|*.jpg;*.png";
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -297,10 +306,10 @@ namespace PatternRecognition
 
         private void learningButton_Click(object sender, EventArgs e)
         {
-            for (int l = 0; l < epochs; l++)
+            for (int l = 0; l < EPOCHS; l++)
             {
-                E = 0;
-                for (int i = 0; i < 10; i++)
+                EValue = 0;
+                for (int i = 0; i < NUMBER_SAMPLES; i++)
                 {
                     Bitmap imageLearning = samples[i];
                     Tuple<int, int, int, int> boundary = Utilities.FindSentenceBoundary(imageLearning);
@@ -315,9 +324,9 @@ namespace PatternRecognition
 
                     TrainNumber(i);
                 }
-                E /= 10;
-                Console.WriteLine(E.ToString());
-                if (E < EMax)
+                EValue /= NUMBER_SAMPLES;
+                Console.WriteLine(EValue.ToString());
+                if (EValue < E_MAX)
                     break;
             }
         }
@@ -328,8 +337,13 @@ namespace PatternRecognition
             {
                 pathTextBox.Text = folderBrowserDialog1.SelectedPath;
                 for (int i = 0; i < 10; i++)
-                    samples[i] = (Bitmap)Image.FromFile(pathTextBox.Text + "/" + i + ".png");
+                    samples[i] = (Bitmap)Image.FromFile(pathTextBox.Text + "/" + i + ".jpg");
             }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

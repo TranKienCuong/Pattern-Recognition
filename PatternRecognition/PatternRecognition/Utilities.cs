@@ -25,7 +25,7 @@ namespace PatternRecognition
             {
                 for (int i = 0; i < image.Width; ++i)
                 {
-                    if (image.GetPixel(i, j).R == 0 && image.GetPixel(i, j).B == 0 && image.GetPixel(i, j).G == 0)
+                    if (image.GetPixel(i, j).R != 255 && image.GetPixel(i, j).B != 255 && image.GetPixel(i, j).G != 255)
                     {
                         top_Y = j - 1;
                         check = true;
@@ -43,7 +43,7 @@ namespace PatternRecognition
             {
                 for (int j = 0; j < image.Height; ++j)
                 {
-                    if (image.GetPixel(i, j).R == 0 && image.GetPixel(i, j).B == 0 && image.GetPixel(i, j).G == 0)
+                    if (image.GetPixel(i, j).R != 255 && image.GetPixel(i, j).B != 255 && image.GetPixel(i, j).G != 255)
                     {
                         top_X = i - 1;
                         check = true;
@@ -61,7 +61,7 @@ namespace PatternRecognition
             {
                 for (int i = image.Width - 1; i >= 0; --i)
                 {
-                    if (image.GetPixel(i, j).R == 0 && image.GetPixel(i, j).B == 0 && image.GetPixel(i, j).G == 0)
+                    if (image.GetPixel(i, j).R != 255 && image.GetPixel(i, j).B != 255 && image.GetPixel(i, j).G != 255)
                     {
                         bottom_Y = j + 1;
                         check = true;
@@ -79,7 +79,7 @@ namespace PatternRecognition
             {
                 for (int j = image.Height - 1; j >= 0; --j)
                 {
-                    if (image.GetPixel(i, j).R == 0 && image.GetPixel(i, j).B == 0 && image.GetPixel(i, j).G == 0)
+                    if (image.GetPixel(i, j).R != 255 && image.GetPixel(i, j).B != 255 && image.GetPixel(i, j).G != 255)
                     {
                         bottom_X = i + 1;
                         check = true;

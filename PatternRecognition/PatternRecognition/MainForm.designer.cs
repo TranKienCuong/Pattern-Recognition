@@ -40,6 +40,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.saveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureRecognition)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -130,6 +131,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.saveButton);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.learningButton);
             this.groupBox2.Controls.Add(this.pathTextBox);
@@ -145,6 +147,16 @@
             // 
             this.folderBrowserDialog1.SelectedPath = "D:\\Documents\\Visual Studio 2015\\Projects\\PatternRecognition\\PatternRecognition\\Sa" +
     "mples";
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(62, 83);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(100, 32);
+            this.saveButton.TabIndex = 9;
+            this.saveButton.Text = "Save weights";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // MainForm
             // 
@@ -177,6 +189,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Button saveButton;
     }
 }
 
