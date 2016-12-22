@@ -7,3 +7,12 @@ d:\documents\visual studio 2015\Projects\PatternRecognition\PatternRecognition\b
 d:\documents\visual studio 2015\Projects\PatternRecognition\PatternRecognition\bin\Debug\PatternRecognition.pdb
 d:\documents\visual studio 2015\Projects\PatternRecognition\PatternRecognition\obj\Debug\PatternRecognition.exe
 d:\documents\visual studio 2015\Projects\PatternRecognition\PatternRecognition\obj\Debug\PatternRecognition.pdb
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\bin\Debug\PatternRecognition.exe.config
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\obj\Debug\PatternRecognition.exe
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\obj\Debug\PatternRecognition.pdb
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\bin\Debug\PatternRecognition.exe
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\bin\Debug\PatternRecognition.pdb
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\obj\Debug\PatternRecognition.csprojResolveAssemblyReference.cache
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\obj\Debug\PatternRecognition.MainForm.resources
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\obj\Debug\PatternRecognition.Properties.Resources.resources
+C:\Users\Wiz\Desktop\PatternRecognition-master\PatternRecognition-master\PatternRecognition\PatternRecognition\obj\Debug\PatternRecognition.csproj.GenerateResource.Cache

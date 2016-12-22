@@ -46,6 +46,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.learningInformlbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.recognitionPictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -219,16 +220,32 @@
             this.folderBrowserDialog1.SelectedPath = "D:\\Documents\\Visual Studio 2015\\Projects\\PatternRecognition\\PatternRecognition\\Sa" +
     "mples";
             // 
+            // learningInformlbl
+            // 
+            this.learningInformlbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.learningInformlbl.Location = new System.Drawing.Point(31, 385);
+            this.learningInformlbl.Name = "learningInformlbl";
+            this.learningInformlbl.Size = new System.Drawing.Size(424, 23);
+            this.learningInformlbl.TabIndex = 11;
+            this.learningInformlbl.Text = "Information";
+            this.learningInformlbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.learningInformlbl.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 394);
+            this.ClientSize = new System.Drawing.Size(495, 421);
+            this.Controls.Add(this.learningInformlbl);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pattern Recognition";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.recognitionPictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -256,6 +273,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button resetButton;
+        private System.Windows.Forms.Label learningInformlbl;
     }
 }
 

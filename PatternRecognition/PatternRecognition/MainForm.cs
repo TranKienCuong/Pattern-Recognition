@@ -336,6 +336,7 @@ namespace PatternRecognition
 
         private void recognizeButton_Click(object sender, EventArgs e)
         {
+            learningInformlbl.Visible = false;
             Bitmap rawImage = (Bitmap)recognitionPictureBox.Image;
             List<Bitmap> bitmaps = Utilities.SegmentCharacters(rawImage);
 
@@ -348,7 +349,7 @@ namespace PatternRecognition
                 result += Recognize().ToString();
             }
 
-            MessageBox.Show("This is " + result);
+            MessageBox.Show("This is: " + result, "Answer", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void browsingButton_Click(object sender, EventArgs e)
@@ -366,6 +367,10 @@ namespace PatternRecognition
 
         private void learningButton_Click(object sender, EventArgs e)
         {
+ 
+            learningInformlbl.Visible = true;
+            learningInformlbl.Text = "Tranning... Wait a moment";
+            Application.DoEvents();
             NUMBER_SAMPLES = (int)numericUpDown1.Value;
             for (int l = 0; l < EPOCHS; l++)
             {
@@ -386,6 +391,7 @@ namespace PatternRecognition
                 if (EValue < E_MAX)
                     break;
             }
+            learningInformlbl.Text = "Done!";
         }
 
         private void browseFolderButton_Click(object sender, EventArgs e)
@@ -421,6 +427,9 @@ namespace PatternRecognition
                     for (int j = 0; j < 4; j++)
                         writer.WriteLine(weightsHiddenAndOutputLayer[i, j]);
                 writer.Close();
+
+                learningInformlbl.Visible = true;
+                learningInformlbl.Text = "Saved weights";
             }
         }
 
@@ -440,12 +449,22 @@ namespace PatternRecognition
                     for (int j = 0; j < 4; j++)
                         weightsHiddenAndOutputLayer[i, j] = double.Parse(reader.ReadLine());
                 reader.Close();
+
+                learningInformlbl.Visible = true;
+                learningInformlbl.Text = "Imported weights";
             }
         }
 
         private void resetButton_Click(object sender, EventArgs e)
         {
             InitializeWeights(true);
+            learningInformlbl.Visible = true;
+            learningInformlbl.Text = "Reseted weights";
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
